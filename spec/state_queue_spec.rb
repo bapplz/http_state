@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe HttpState::Queue do
+describe Queue do
 
-  let(:queue) { HttpState::Queue.new }
+  let(:queue) { Queue.new }
 
   it "should not be empty when an item is added" do
     queue.push 1
