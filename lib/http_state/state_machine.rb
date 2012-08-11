@@ -5,7 +5,6 @@ module HttpState
       @state_queue = options[:state_queue]
       @state_factory = options[:state_factory]
       @current_state = create_state(options[:initial_state])
-      @next_state = nil
     end
 
     def start
@@ -21,7 +20,6 @@ module HttpState
       @current_state.handle
       @current_state.cleanup
       handle_next_item unless @state_queue.empty?
-      @current_state = create_state(@next_state) unless @next_state.nil?
     end
 
     private
@@ -31,7 +29,7 @@ module HttpState
         @state_queue.push(new_state, parameters)
       end
       state.on :next_state_saved do |state_class|
-        @next_state = state_class
+        @current_state = create_state(state_class)
       end
     end
 
