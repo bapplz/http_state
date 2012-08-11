@@ -16,6 +16,10 @@ class InitialState < Base
 end
 
 class SecondaryState < Base
+
+  def handle
+    save_next_state(InitialState)
+  end
 end
 
 RSpec.configure do |config|

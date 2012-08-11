@@ -6,7 +6,7 @@ module HttpState
     end
 
     def create_state(state)
-      state_object = deep_const_get(state)
+      state_object = deep_const_get(state.to_s)
       state_object.new
     end
   end

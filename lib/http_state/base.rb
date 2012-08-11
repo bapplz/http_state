@@ -1,7 +1,6 @@
 module HttpState
   class Base
     def initialize
-      @next_state = self.class
       @actions = {}
       yield self if block_given?
     end
@@ -17,8 +16,10 @@ module HttpState
       end
     end
 
-    def next
-      @next_state
+    def save_next_state(state_class)
+      @actions[:next_state_saved].each do |action|
+        action.call(state_class)
+      end
     end
 
     def handle
